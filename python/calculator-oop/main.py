@@ -32,6 +32,10 @@ while answer == 'n':
 
 print(dictofdict)
 
+
+#with open('dictofdict.json', 'w') as file:        # stores the dictionary of dictionary results in a json file and saves it
+#    json.dump(d, file, indent = 4) # the indent makes the file easier to read
+
 #print(calculatorObject.check())
 
    #this cannot be changed within an object you have to call the class not the onject

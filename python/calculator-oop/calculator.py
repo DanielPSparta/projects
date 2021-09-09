@@ -6,6 +6,7 @@ class CalculatorClass:
 #---------------------------------------------CLASS METHODS-----------------------------------------------------------------------
     def update_count(cls):              #class methods take cls
         cls.op_count +=1
+        print(cls.op_count)
 
 #----------------------------------------------------SELF VARIABLE INITIALISATION---------------------------------------------------
     def __init__(self,number1,number2):     #class constructor, the variables used all over the class, initialises variables
