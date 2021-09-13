@@ -1,5 +1,5 @@
 name = {"fname":"Adam","lname":"smith","group":"ENG-94","year":2021}
-#or 
+#or
 name = dict(fname=Adam,lname=smith,group=ENG-94,year=2021)
 
 print('fname: ', name['fname'])
