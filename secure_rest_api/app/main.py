@@ -43,7 +43,7 @@ def login_page():
 
 def create_token(username, password):
     validity = datetime.datetime.utcnow() + datetime.timedelta(days=15)      #get current date + 15 days
-    token = jwt.encode({'user_id': 123154,'username':username, 'expiry': str(validity)}, SECRET_KEY, "HS256")      #user id any number since we don't have a database for users
+    token = jwt.encode({'user_id': 123154,'username':username, 'exp': str(validity)}, SECRET_KEY, "HS256")      #user id any number since we don't have a database for users
     #HS256" the hashing algorithm SHA 256
     return token
 

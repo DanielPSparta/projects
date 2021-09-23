@@ -47,6 +47,18 @@ def check_user_in_db(user,password):
         print("No username found")
         return False
 
+def check_username_in_db(user,password):
+    conn = sqlite3.connect('data.db')
+    command = f"SELECT * FROM user_db WHERE username = '{user}'"
+    x = conn.execute(command).fetchone()
+    if x:
+        print("user already has this name")
+        return True
+    else:
+        print("No previous username found")
+        return False
+
+
 if __name__ == '__main__':
     make_table()
 

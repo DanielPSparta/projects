@@ -10,7 +10,7 @@ SECRET_KEY = "C7E2F9D46E9"
 #--------------------------------------functions for the server-------------------------------------
 def create_token(username, password, user_id):
     validity = datetime.datetime.utcnow() + datetime.timedelta(days=15)      #get current date + 15 days
-    token = jwt.encode({'user_id': user_id,'username':username, 'expiry': str(validity)}, SECRET_KEY, "HS256")      #user id any number since we don't have a database for users
+    token = jwt.encode({'user_id': user_id,'username':username, 'exp': validity}, SECRET_KEY, "HS256")      #user id any number since we don't have a database for users
     #HS256" the hashing algorithm SHA 256
     return token
 
@@ -45,6 +45,7 @@ def index_page():
 def login_page():
     #need to render the login.html page
     return render_template('login.html')
+
 @flask_app.route('/addlogin', methods = ['POST'])
 def addlogin_page():
     #need to render the login.html page
@@ -55,8 +56,12 @@ def accountcreated_page():
     data = request.form   #retreive data from the post from the login page
     username = data['username']       # store username and password from html
     password = data['password']
-    sq.table_insert(username,password)
-    return render_template('accountcreated.html')
+    check = sq.check_username_in_db(username,password)
+    if check == True:
+        return render_template('addlogin.html', reason = 'Someone already has this username')
+    else:
+        sq.table_insert(username,password)
+        return render_template('accountcreated.html')
 
 
 @flask_app.route('/authenticate', methods = ['POST']) #authpage get to here form login
@@ -74,7 +79,7 @@ def authenticate_users():
         resp.set_cookie('token', user_token)
         return resp   #retreive data from the post from the login page
     else:
-        return render_template('login.html') 
+        return render_template('login.html')
 
 
 @flask_app.route('/results', methods = ['POST']) #authpage get to here form login
