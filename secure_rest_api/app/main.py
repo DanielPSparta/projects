@@ -4,17 +4,28 @@ import jwt
 import datetime
 
 
-SECRET_KEY = "C7E2F9"
+SECRET_KEY = "C7E2F9D46E9"
 flask_app = Flask(__name__)                         #makes flask server to run under name flask_app
+
+def verify_token(token):
+    if token:   #i ftoken exists
+        decoded_token = jwt.decode(token, SECRET_KEY, "HS256")
+        print(decoded_token)
+    #check whether infor in coded token is correct or not
+        return True #if inforamtion is correct, otherwise return false
+    else:  # else no token so here
+        return False
 
 
 @flask_app.route('/')                               #makes a new page on the server
 def index_page():
     print(request.cookies)         #find the cookies sent with the request
-
-    if 'user_id' in request.cookies:
+    isUserLoggedIn = False
+    if 'token' in request.cookies: #if there is a token in cookies return true
+        isUserLoggedIn = verify_token(request.cookies['token'])
+    if isUserLoggedIn:  #if there is a token go here
         return "welcome back to the website"
-    else:
+    else:  # if no token in cookies go here
         user_id = random()                     #user id is a random number
         print(f"User ID: {user_id}")           # print the user id server side
         resp = make_response("This is the index page of a secure REST API")    #make a response to return to the user
