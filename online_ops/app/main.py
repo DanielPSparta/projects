@@ -101,4 +101,4 @@ def results_users():
 #-------------------------------------run server -------------------------------------------
 if __name__ == "__main__":
     print("This is a secure calculator Server")
-    flask_app.run(debug = True, ssl_context=('cert/cert.pem','cert/key.pem'))   #runs the flask app so create a server debug =True means that it will auto update
+    flask_app.run(host = "0.0.0.0", debug = True, ssl_context=('cert/cert.pem','cert/key.pem'))   #runs the flask app so create a server debug =True means that it will auto update
